@@ -19,7 +19,7 @@ class Graph:
         if v1 in self.vertices and v2 in self.vertices:
             self.vertices[v1].add(v2)
         else:
-            raise IndexError('Vertex does not exist in graph')
+            raise IndexError('Vertex not found')
 
     def get_neighbors(self, vertex_id):
         return self.vertices[vertex_id]
@@ -56,7 +56,7 @@ class Graph:
         if visited is None:
             visited = set()
 
-          # start
+        # start
         if starting_vertex not in visited:
             visited.add(starting_vertex)
             print(starting_vertex)
