@@ -8,60 +8,38 @@ class Graph:
 
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
 
-    # BF -- uses queue
-    # DF -- uses stack
-
     def __init__(self):
         self.vertices = {}
 
     def add_vertex(self, vertex_id):
-        """
-        Add a vertex to the graph.
-
-        Using a set because it does not allow duplicates
-        """
+        # Make a set of edges
         self.vertices[vertex_id] = set()
 
     def add_edge(self, v1, v2):
-        """
-        Add a directed edge to the graph.
-        """
         if v1 in self.vertices and v2 in self.vertices:
             self.vertices[v1].add(v2)
         else:
-            raise IndexError("Vertex not found")
+            raise IndexError('Vertex does not exist in graph')
 
     def get_neighbors(self, vertex_id):
-        """
-        Get all neighbors (edges) of a vertex.
-        """
         return self.vertices[vertex_id]
 
     def bft(self, starting_vertex):
-        """
-        Print each vertex in breadth-first order
-        beginning from starting_vertex.
-        """
         q = Queue()
         q.enqueue(starting_vertex)
-        # Keep track of visited
+        # mark visited nodes
         visited = set()
-
+        # until queue is empty
         while q.size() > 0:
-            v = q.dequeue()
-
+            v = q.dequeue()  # deQ first node
             if v not in visited:
                 print(v)
-                visited.add(v)
-
-                for next_v in self.get_neighbors(v):
-                    q.enqueue(next_v)
+                visited.add(v)  # mark as visited
+                for next_vertex in self.get_neighbors(v):
+                    q.enqueue(next_vertex)
 
     def dft(self, starting_vertex):
-        """
-        Print each vertex in depth-first order
-        beginning from starting_vertex.
-        """
+        # exactly the same as above but with a stack instead of queue
         s = Stack()
         s.push(starting_vertex)
         visited = set()
@@ -73,23 +51,19 @@ class Graph:
                 for next_vertex in self.get_neighbors(v):
                     s.push(next_vertex)
 
-    def dft_recursive(self, starting_vertex):
-        """
-        Print each vertex in depth-first order
-        beginning from starting_vertex.
-
-        This should be done using recursion.
-        """
-        if visited == None:
+    def dft_recursive(self, starting_vertex, visited=None):
+        # instantiate if needed
+        if visited is None:
             visited = set()
 
+          # start
         if starting_vertex not in visited:
             visited.add(starting_vertex)
             print(starting_vertex)
             for next_vertex in self.get_neighbors(starting_vertex):
                 self.dft_recursive(next_vertex, visited)
 
-        def bfs(self, starting_vertex, destination_vertex):
+    def bfs(self, starting_vertex, destination_vertex):
         q = Queue()
         # push start of path into Queue
         q.enqueue([starting_vertex])
